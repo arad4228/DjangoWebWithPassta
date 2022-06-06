@@ -1,0 +1,86 @@
+{% extends 'blog/base.html'%}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>Blog-{{ post.title }}</title>
+{%  endblock %}
+
+        {% block main_area %}
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{ post.title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{ post.author }}</a>
+        </p>
+
+        <hr>
+        {% if user.is_authenticated and user == post.author %}
+                <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{ post.pk }}" role="button">
+                    <i class="fas fa-pen"></i>&nbsp;&nbsp;Edit Post</a>
+            {% endif %}
+        <!-- Date/Time -->
+        <p>Posted on {{ post.created_at }}</p>
+
+
+        <hr>
+
+        <!-- Preview Image -->
+      <!-- 이미지가 있다면 이미지 출력 그렇지 않으면 이미지가 랜덤으로 제공-->
+          {% if post.head_image %}
+            <img class="img-fluid rounded" src="{{  post.head_image.url }}"alt="">
+          {% else %}
+            <img class="card-img-top" src="https://picsum.photos/seed/{{ post.pk }}/800/200" alt="">
+          {% endif %}
+        <hr>
+
+        <!-- Post Content -->
+        <p>{{ post.get_content_markdown | safe }}</p>
+
+        {% if post.attached_file %}
+          <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부 파일 다운로드</a>
+            {{ post.get_file_name }}
+        {% endif  %}
+
+        <hr>
+        {% if post.tags.exists %}
+                            <br />
+                        <i class = "fas fa-tags"></i>
+                        {%  for tag in p.tags.iterator %}
+                            <a href= {{ tag.get_absolute_url }}> {{ tag }}</a>
+                            {% endfor %}
+                            <br />
+                            <br />
+                        {% endif %}
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form method="post" action=" {{ post.get_absolute_url }}addComment/">
+                {% csrf_token %}
+                {{  comment_form | crispy }}
+              <div class="form-group">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Single Comment -->
+      {% if post.comment_set.exists %}
+        {% for comment in post.comment_set.iterator %}
+        <div class="media mb-4">
+{#           <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+          <div class="media-body" id = "comment-{{ comment.pk }}">
+            <h5 class="mt-0">{{ comment.author }} {{ comment.created_at }}</h5>
+              <p>{{ comment.content }}</p>
+          </div>
+        </div>
+          {% endfor %}
+      {% endif %}
+      </div>
+        {%  endblock %}

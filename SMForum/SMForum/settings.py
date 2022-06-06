@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -37,6 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 추가한 앱들
+    'forums',
+
+    # 마크다운
+    'markdownx',
+
+    # 입력 폼
+    'crispy_forms',
+
+    ## auth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -73,12 +91,15 @@ WSGI_APPLICATION = 'SMForum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+LOCAL_SQLITE = 'sqlite:///' + os.path.abspath(os.path.join(BASE_DIR, 'db.sqlite3'))
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(default=LOCAL_SQLITE)
 
 
 # Password validation
@@ -105,16 +126,40 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# 루트 경로 설정
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# 유저가 업로드하는 파일 저장 및 위치 지정
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+
+# crispy Formsc
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+## alluth
+AUTHENTICATION_BACKENDS =(
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = '/blog/'
