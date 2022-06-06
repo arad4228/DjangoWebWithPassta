@@ -9,7 +9,7 @@ from .forms import CommentForm
 from .models import ForumPost, Category, Tag
 
 
-class PostCreate(LoginRequiredMixin,CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = ForumPost
     fields = ['title', 'hook_msg','content','content_image','attached_file','category','tags']
 
