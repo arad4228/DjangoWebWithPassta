@@ -15,7 +15,7 @@ class Tag(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/blog/tag/{self.slug}/'
+        return f'/forums/tag/{self.slug}/'
 
 
 class Category(models.Model):
@@ -29,7 +29,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def get_absolute_url(self):
-        return f'/blog/category/{self.slug}/'
+        return f'/forums/category/{self.slug}/'
 
 
 class ForumPost(models.Model):
@@ -37,8 +37,8 @@ class ForumPost(models.Model):
     hook_msg = models.TextField(blank=True)             # Hook 메시지
     content = MarkdownxField()                          # 내용
 
-    content_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
-    attached_file = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
+    content_image = models.ImageField(upload_to='forums/images/%Y/%m/%d/', blank=True)
+    attached_file = models.FileField(upload_to='forums/files/%Y/%m/%d/', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -53,7 +53,7 @@ class ForumPost(models.Model):
         return f'[{self.pk}]  [{self.title}] :: {self.author}'
 
     def get_absolute_url(self):
-        return f'/blog/{self.pk}/'
+        return f'/forums/{self.pk}/'
 
     def get_file_name(self):
         return os.path.basename(self.attached_file.name)

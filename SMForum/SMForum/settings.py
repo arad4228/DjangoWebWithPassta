@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # 추가한 앱들
     'forums',
+    'main_page',
 
     # 마크다운
     'markdownx',
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'SMForum.urls'
@@ -162,4 +164,4 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/forums/'

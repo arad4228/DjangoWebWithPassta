@@ -1,5 +1,5 @@
 from django.contrib import admin
-from SMForum.forums.models import Category, Tag, ForumPost, Comment
+from .models import Category, Tag, ForumPost, Comment
 from markdownx.admin import MarkdownxModelAdmin
 
 
@@ -16,4 +16,4 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Tag,TagAdmin)
 admin.site.register(ForumPost, MarkdownxModelAdmin)
-admin.site.regeister(Comment)
+admin.site.register(Comment)
