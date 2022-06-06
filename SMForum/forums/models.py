@@ -1,11 +1,32 @@
 # Create your models here.
 import os.path
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from markdownx.models import MarkdownxField
 from markdown import markdown
 
+
+class User(AbstractUser):
+    nickname = models.CharField(max_length=50,blank=True, null=True)
+    phoneNumber = models.CharField(max_length=15,blank=True, null=True)
+    my_image = models.ImageField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+
+    def get_name(self):
+        return self.first_name + self.last_name
+
+    def get_nickname(self):
+        return self.nickname
+
+    def get_phoneNumer(self):
+        return self.phoneNumber
+
+    def get_user_email(self):
+        return self.email
+
+    def get_last_login(self):
+        return self.last_login
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
