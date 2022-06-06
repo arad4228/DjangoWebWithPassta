@@ -1,7 +1,7 @@
 {% extends 'util/base.html'%}
 {% load crispy_forms_tags %}
 {% block title %}
-    <title>Blog-{{ post.title }}</title>
+    <title>Forum-{{ forumpost.title }}</title>
 {%  endblock %}
 
         {% block main_area %}
@@ -9,44 +9,32 @@
       <div class="col-lg-8">
 
         <!-- Title -->
-        <h1 class="mt-4">{{ post.title }}</h1>
+        <h1 class="mt-4">{{ forumpost.title }}</h1>
 
         <!-- Author -->
         <p class="lead">
           by
-          <a href="#">{{ post.author }}</a>
+          <a href="#">{{ forumpost.author }}</a>
         </p>
 
         <hr>
-        {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{ post.pk }}" role="button">
+        {% if user.is_authenticated and user == forumpost.author %}
+                <a class="btn btn-info btn-sm float-right" href="/Forums/update_post/{{ post.pk }}" role="button">
                     <i class="fas fa-pen"></i>&nbsp;&nbsp;Edit Post</a>
             {% endif %}
         <!-- Date/Time -->
-        <p>Posted on {{ post.created_at }}</p>
-
-
-        <hr>
-
-        <!-- Preview Image -->
-      <!-- 이미지가 있다면 이미지 출력 그렇지 않으면 이미지가 랜덤으로 제공-->
-          {% if post.head_image %}
-            <img class="img-fluid rounded" src="{{  post.head_image.url }}"alt="">
-          {% else %}
-            <img class="card-img-top" src="https://picsum.photos/seed/{{ post.pk }}/800/200" alt="">
-          {% endif %}
-        <hr>
+        <p>Posted on {{ forumpost.created_at }}</p>
 
         <!-- Post Content -->
-        <p>{{ post.get_content_markdown | safe }}</p>
+        <p>{{ forumpost.get_content_markdown | safe }}</p>
 
-        {% if post.attached_file %}
-          <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부 파일 다운로드</a>
-            {{ post.get_file_name }}
+        {% if forumpost.attached_file %}
+          <a href="{{ forumpost.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부 파일 다운로드</a>
+            {{ forumpost.get_file_name }}
         {% endif  %}
 
         <hr>
-        {% if post.tags.exists %}
+        {% if forumpost.tags.exists %}
                             <br />
                         <i class = "fas fa-tags"></i>
                         {%  for tag in p.tags.iterator %}
@@ -60,7 +48,7 @@
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
-            <form method="post" action=" {{ post.get_absolute_url }}addComment/">
+            <form method="post" action=" {{ forumpost.get_absolute_url }}addComment/">
                 {% csrf_token %}
                 {{  comment_form | crispy }}
               <div class="form-group">
@@ -71,8 +59,8 @@
         </div>
 
         <!-- Single Comment -->
-      {% if post.comment_set.exists %}
-        {% for comment in post.comment_set.iterator %}
+      {% if forumpost.comment_set.exists %}
+        {% for comment in forumpost.comment_set.iterator %}
         <div class="media mb-4">
 {#           <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
           <div class="media-body" id = "comment-{{ comment.pk }}">

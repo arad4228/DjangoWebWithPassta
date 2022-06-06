@@ -9,9 +9,11 @@ from .forms import CommentForm
 from .models import ForumPost, Category, Tag
 
 
-class PostCreate(LoginRequiredMixin, UserPassesTestMixin ,CreateView):
+class PostCreate(LoginRequiredMixin,CreateView):
     model = ForumPost
-    fields = ['title', 'hook_msg','content','head_image','attached_file','category']
+    fields = ['title', 'hook_msg','content','content_image','attached_file','category','tags']
+
+    template_name = "forums/forumpost_form.html"
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -21,16 +23,32 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin ,CreateView):
         else:
             return redirect('/forums')
 
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super(PostCreate, self).get_context_data()
+        context['Categories'] = Category.objects.all()
+        context['No_Categoriy_Post_count'] = ForumPost.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
+        return context
+
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = ForumPost
-    fields = ['title', 'hook_msg','content','head_image','attached_file','category']
+    fields = ['title', 'hook_msg','content','content_image','attached_file','category','tags']
+
+    template_name = "forums/forumpost_form_update.html"
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
             return super(PostUpdate, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super(PostUpdate, self).get_context_data()
+        context['Categories'] = Category.objects.all()
+        context['No_Categoriy_Post_count'] = ForumPost.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
+        return context
 
 
 class PostList(ListView):

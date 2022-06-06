@@ -46,14 +46,14 @@ class ForumPost(models.Model):
     # Forum의 글은 User와 one to many로 연결된다.
     author = models.ForeignKey(User, on_delete=models.CASCADE)  # 사용자가 사라지면 글은 의미가 없어지므로 삭제
 
-    category = models.ForeignKey(Category, null=False, blank=False, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return f'[{self.pk}]  [{self.title}] :: {self.author}'
 
     def get_absolute_url(self):
-        return f'/forums/{self.pk}/'
+        return f'/forums/post/{self.pk}/'
 
     def get_file_name(self):
         return os.path.basename(self.attached_file.name)

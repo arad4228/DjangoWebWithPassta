@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    {% include 'forums/navbar.html' %}
+    {% include 'util/navbar.html' %}
 
 
     <div class="container my-3">
@@ -44,7 +44,7 @@
                                 <ul class="list-unstyled mb-0">
                                     {% for c in Categories %}
                                         <li>
-                                            <a href="{{ c.get_absolute_url }}">{{ c.name }}({{ c.post_set.count }})</a>
+                                            <a href="{{ c.get_absolute_url }}">{{ c.name }}({{ c.forumpost_set.count }})</a>
                                         </li>
                                     {% endfor %}
                                     <li>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Footer -->
-    {% include 'forums/footer.html' %}
+    {% include 'util/footer.html' %}
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
