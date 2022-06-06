@@ -42,4 +42,4 @@ def about_me(request):
             }
         )
     else:
-        return PermissionDenied
+        raise PermissionDenied
