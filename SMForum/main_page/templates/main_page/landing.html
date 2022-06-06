@@ -1,4 +1,4 @@
-{%  extends 'util/base.html' %}
+{%  extends 'util/noSideBase.html' %}
 
 {% block title %}
     <title>홈페이지 대문</title>
@@ -6,7 +6,10 @@
 
 {% block main_area %}
     <h1>상명대학교 컴퓨터과학과전용 포럼입니다.</h1>
-    {% for forumPost in recent_post %}
+    <h3> 아래의 버튼을 통해 원하는 포럼으로 입장할 수 있습니다.</h3>
+
+    <h5> 최근 포럼글들</h5>
+    {% for forumPost in recent_posts %}
         <p>{{ forumPost.title }} - {{ forumPost.content | truncatewords:30 }}</p>
     {% endfor %}
 {% endblock %}

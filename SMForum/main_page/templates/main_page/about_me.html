@@ -1,0 +1,23 @@
+{% extends 'util/noSideBase.html' %}
+
+{% block title %}
+    <title>나에 대해서</title>
+{% endblock %}
+
+{% block main_area %}
+    {% if User.is_authenticated %}
+        <h1>Hi I'm Belong in to SangMyungUniv.</h1>
+        <a class="btn btn-info btn-sm float-right" href="/update_user" role="button">
+                    <i class="fas fa-pen"></i>&nbsp;&nbsp;Fix User Data</a>
+        {% if User.my_image %}
+            <img class="img-fluid rounded" src="{{  User.my_image.url }}"alt="" width="400">
+        {% endif %}
+        <h3>My Id is {{ User.username }}</h3>
+        <h3>My Name is {{ User.get_name }}</h3>
+        <h3>My Nickname is {{ User.get_nickname }}</h3>
+        <h3>My PhoneNumber is {{ User.get_phoneNumer }}</h3>
+        <h3>Email Address: {{ User.get_user_email }}</h3>
+        <h3>Last Login Time: {{ User.get_last_login }}</h3>
+        <!-- 깃허브 이동 버튼 만들기 -->
+    {% endif %}
+{% endblock %}
