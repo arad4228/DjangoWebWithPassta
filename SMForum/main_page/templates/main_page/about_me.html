@@ -19,5 +19,6 @@
         <h3>Email Address: {{ User.get_user_email }}</h3>
         <h3>Last Login Time: {{ User.get_last_login }}</h3>
         <!-- 깃허브 이동 버튼 만들기 -->
+        <a href= "{{ User.github }}"> <img src="https://img.shields.io/badge/GitHub-white?style=for-the-badge&logo=GitHub&logoColor=5C2D91"></a>
     {% endif %}
 {% endblock %}
