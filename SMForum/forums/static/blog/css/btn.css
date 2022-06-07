@@ -1,0 +1,28 @@
+.main_button_1 {
+    width:100%;
+    font-size: 40px;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid black;
+}
+.button-box {
+    display: flex;
+    width: 900px;
+}
+
+.recent_forum_box {
+    border: 1px solid black;
+    width: 900px;
+    height: auto;
+}
+
+.sangmyung{
+    border: 1px solid black;
+    width: 900px;
+    height: auto;
+}
+
+.sumung{
+    border: 1px solid black;
+    width: 600px;
+    height: auto;
+}
