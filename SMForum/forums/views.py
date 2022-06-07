@@ -76,29 +76,29 @@ class PostDetail(DetailView):
 def show_category_posts(request, slug):
     if slug=='no-category' :  # 미분류 카테고리
         category = '미분류'
-        post_list = ForumPost.objects.filter(category=None)
+        forumpost_list = ForumPost.objects.filter(category=None)
     else :
         category = Category.objects.get(slug=slug)
-        post_list = ForumPost.objects.filter(category = category)
+        forumpost_list = ForumPost.objects.filter(category=category)
 
     context = {
         'Categories' :Category.objects.all(),
         'No_Categoriy_Post_count' : ForumPost.objects.filter(category=None).count(),
         'category' : category,
-        'post_list' : post_list
+        'forumpost_list' : forumpost_list
     }
     return render(request, 'forums/forumpost_list.html', context)
 
 
 def show_tag_posts(request, slug):
     tag = Tag.objects.get(slug=slug)
-    post_list = tag.post_set.all()
+    forumpost_list = tag.post_set.all()
 
     context = {
         'Categories': Category.objects.all(),
         'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
         'tag': tag,
-        'post_list': post_list
+        'forumpost_list': forumpost_list
     }
     return render(request, 'forums/forumpost_list.html', context)
 
