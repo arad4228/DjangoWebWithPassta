@@ -15,6 +15,8 @@ def update_user(request):
     else:
         form = UpdateUserForm(instance=request.user)
     context = {
+        'Categories': Category.objects.all(),
+        'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
         'form': form,
     }
     return render(request, 'main_page/main_page_user_update.html', context)
@@ -38,7 +40,9 @@ def about_me(request):
         return render(
             request, 'main_page/about_me.html',
             {
-                    'User':user,
+                'Categories': Category.objects.all(),
+                'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
+                'User':user,
             }
         )
     else:

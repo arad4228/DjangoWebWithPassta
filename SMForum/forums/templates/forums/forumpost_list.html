@@ -11,14 +11,13 @@
                 <i class="fas fa-pen"></i>&nbsp;&nbsp;New Post</a>
         {% endif %}
     {% endif %}
-    <h1>Forums
-                    {% if category %}
-                        in category ' {{ category }}'
-                    {% endif %}
-                    {% if tag %}
-                        with tag '{{ tag }}'
-                    {%  endif %}
-                </h1>
+
+    {% if category %}
+        <h1>{{ category }} Forums</h1>
+    {% endif %}
+    {% if tag %}
+        <h1> Forums with tag '{{ tag }}'</h1>
+    {%  endif %}
 
     {% for f in forumpost_list %}
                 <!-- Forum Post -->
