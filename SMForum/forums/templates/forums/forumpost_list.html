@@ -6,31 +6,33 @@
 
 {% block main_area %}
     {% if user.is_authenticated %}
-        {% if user.is_superuser or user.is_staff %}
-            <a class="btn btn-info btn-sm float-right" href="/forums/create_post/" role="button">
-                <i class="fas fa-pen"></i>&nbsp;&nbsp;New Post</a>
-        {% endif %}
+        <a class="btn btn-info btn-sm float-right" href="/forums/create_post/" role="button">
+            <i class="fas fa-pen"></i>&nbsp;&nbsp;새로운 포럼글 작성</a>
     {% endif %}
 
     {% if category %}
         <h1>{{ category }} Forums</h1>
-    {% endif %}
-    {% if tag %}
+    {% elif tag %}
         <h1> Forums with tag '{{ tag }}'</h1>
-    {%  endif %}
+    {% elif status %}
+        <h1>"{{ status }}" Forums</h1>
+    {% else %}
+        <h1>All Forums</h1>
+    {% endif %}
+
 
     {% for f in forumpost_list %}
                 <!-- Forum Post -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h2 class="card-title">[{{ f.status }}]{{ f.title }}</h2>
+                        <h2 class="card-title"><a href={{ f.status.get_absolute_url }}> [{{ f.status }}]</a>{{ f.title }}</h2>
                         {% if f.hook_msg %}
                             <p class="card-text">{{ f.hook_msg }}</p>
                         {% else %}
                             <p class="card-text">{{ f.get_content_markdown | truncatewords_html:30 |safe }}</p>
                         {% endif %}
                         <a href="{{ f.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-                        {% if p.tags.exists %}
+                        {% if f.tags.exists %}
                             <br />
                         <i class = "fas fa-tags"></i>
                         {%  for tag in f.tags.iterator %}

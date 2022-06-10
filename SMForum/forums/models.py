@@ -36,6 +36,12 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/forums/status/{self.slug}'
+
+    class Meta:
+        verbose_name_plural = 'Statuses'
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)

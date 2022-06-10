@@ -6,12 +6,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 
 from .forms import CommentForm
-from .models import ForumPost, Category, Tag
+from .models import ForumPost, Category, Tag, Status
 
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = ForumPost
-    fields = ['title', 'status', 'content', 'content_image', 'attached_file', 'category', 'tags']
+    fields = ['title', 'status', 'hook_msg', 'content', 'content_image', 'attached_file', 'category', 'tags']
 
     template_name = "forums/forumpost_form.html"
 
@@ -33,7 +33,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = ForumPost
-    fields = ['title', 'status', 'content', 'content_image', 'attached_file', 'category', 'tags']
+    fields = ['title', 'status', 'hook_msg', 'content', 'content_image', 'attached_file', 'category', 'tags']
 
     template_name = "forums/forumpost_form_update.html"
 
@@ -76,29 +76,42 @@ class PostDetail(DetailView):
 def show_category_posts(request, slug):
     if slug=='no-category' :  # 미분류 카테고리
         category = '미분류'
-        forumpost_list = ForumPost.objects.filter(category=None)
+        forum_post_list = ForumPost.objects.filter(category=None)
     else :
         category = Category.objects.get(slug=slug)
-        forumpost_list = ForumPost.objects.filter(category=category)
+        forum_post_list = ForumPost.objects.filter(category=category)
 
     context = {
         'Categories' :Category.objects.all(),
         'No_Categoriy_Post_count' : ForumPost.objects.filter(category=None).count(),
         'category' : category,
-        'forumpost_list' : forumpost_list
+        'forumpost_list' : forum_post_list
     }
     return render(request, 'forums/forumpost_list.html', context)
 
 
 def show_tag_posts(request, slug):
     tag = Tag.objects.get(slug=slug)
-    forumpost_list = tag.post_set.all()
+    forum_post_list = tag.forumpost_set.all()
 
     context = {
         'Categories': Category.objects.all(),
         'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
         'tag': tag,
-        'forumpost_list': forumpost_list
+        'forumpost_list': forum_post_list
+    }
+    return render(request, 'forums/forumpost_list.html', context)
+
+
+def show_status_posts(request, slug):
+    status = Status.objects.get(slug=slug)
+    forum_post_list = status.forumpost_set.all()
+
+    context = {
+        'Categories': Category.objects.all(),
+        'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
+        'status': status,
+        'forumpost_list': forum_post_list
     }
     return render(request, 'forums/forumpost_list.html', context)
 
