@@ -1,4 +1,5 @@
 {% extends 'util/noSideBase.html' %}
+{% load static %}
 
 {% block title %}
     <title>나에 대해서</title>
@@ -11,14 +12,40 @@
                     <i class="fas fa-pen"></i>&nbsp;&nbsp;Fix User Data</a>
         {% if User.my_image %}
             <img class="img-fluid rounded" src="{{  User.my_image.url }}"alt="" width="400">
+        {% else %}
+            <img class="img-fluid rounded" src="{% static "/images/NoUserImage.png" %}" alt="" width="400">
         {% endif %}
         <h3>My Id is {{ User.username }}</h3>
-        <h3>My Name is {{ User.get_name }}</h3>
-        <h3>My Nickname is {{ User.get_nickname }}</h3>
-        <h3>My PhoneNumber is {{ User.get_phoneNumer }}</h3>
+        <h3>My Name is
+            {% if User.get_name %}
+                {{ User.get_name }}
+            {% else %}
+                (입력 부탁드립니다.)
+            {% endif %}
+        </h3>
+        <h3>My Nickname is
+            {% if User.get_nickname != None %}
+                {{ User.get_name }}
+            {% else %}
+                (입력 부탁드립니다.)
+            {% endif %}
+        </h3>
+        <h3>My PhoneNumber is
+            {% if User.get_phoneNumber != None %}
+                {{ User.get_name }}
+            {% else %}
+                (입력 부탁드립니다.)
+            {% endif %}
+        </h3>
         <h3>Email Address: {{ User.get_user_email }}</h3>
         <h3>Last Login Time: {{ User.get_last_login }}</h3>
         <!-- 깃허브 이동 버튼 만들기 -->
-        <a href= "{{ User.github }}"> <img src="https://img.shields.io/badge/GitHub-white?style=for-the-badge&logo=GitHub&logoColor=5C2D91"></a>
+        {% if User.github == None %}
+            <img src="https://img.shields.io/badge/No GitHub Url-9cf?style=for-the-badge&logo=GitHub&logoColor=5C2D91">
+        {% else %}
+            <a href= "{{ User.github }}">
+                <img src="https://img.shields.io/badge/GitHub-9cf?style=for-the-badge&logo=GitHub&logoColor=5C2D91">
+            </a>
+        {% endif %}
     {% endif %}
 {% endblock %}
