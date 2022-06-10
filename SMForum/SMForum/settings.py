@@ -27,7 +27,7 @@ SECRET_KEY = 'v*=uz!%h1ah=w#xrki@l13n3=xzw!v&tjob-#7-0)*ve(-heiw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,7 +74,7 @@ ROOT_URLCONF = 'SMForum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

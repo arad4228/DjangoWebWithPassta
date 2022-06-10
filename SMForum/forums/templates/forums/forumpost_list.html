@@ -23,7 +23,7 @@
                 <!-- Forum Post -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h2 class="card-title">{{ f.title }}</h2>
+                        <h2 class="card-title">[{{ f.status }}]{{ f.title }}</h2>
                         {% if f.hook_msg %}
                             <p class="card-text">{{ f.hook_msg }}</p>
                         {% else %}

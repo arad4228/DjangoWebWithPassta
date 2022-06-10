@@ -28,6 +28,15 @@ class User(AbstractUser):
     def get_last_login(self):
         return self.last_login
 
+
+class Status(models.Model):
+    name = models.CharField(max_length=20)
+    slug = models.SlugField(max_length=40, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -68,6 +77,7 @@ class ForumPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)  # 사용자가 사라지면 글은 의미가 없어지므로 삭제
 
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    status = models.ForeignKey(Status, null=True, blank=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

@@ -11,7 +11,7 @@ from .models import ForumPost, Category, Tag
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = ForumPost
-    fields = ['title', 'hook_msg','content','content_image','attached_file','category','tags']
+    fields = ['title', 'status', 'content', 'content_image', 'attached_file', 'category', 'tags']
 
     template_name = "forums/forumpost_form.html"
 
@@ -33,7 +33,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = ForumPost
-    fields = ['title', 'hook_msg','content','content_image','attached_file','category','tags']
+    fields = ['title', 'status', 'content', 'content_image', 'attached_file', 'category', 'tags']
 
     template_name = "forums/forumpost_form_update.html"
 
