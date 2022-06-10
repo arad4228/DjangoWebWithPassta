@@ -1,6 +1,6 @@
 ---
 applications:
-- name: aradSMForums
+- name: arad4228SMForum
   buildpack: python_buildpack
   memory: 512M
   instance: 1

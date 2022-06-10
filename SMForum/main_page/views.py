@@ -46,4 +46,10 @@ def about_me(request):
             }
         )
     else:
-        raise PermissionDenied
+        return render(
+            request, 'main_page/return_main_page.html',
+                    {
+                        'Categories': Category.objects.all(),
+                        'No_Categoriy_Post_count': ForumPost.objects.filter(category=None).count(),
+                    }
+        )
