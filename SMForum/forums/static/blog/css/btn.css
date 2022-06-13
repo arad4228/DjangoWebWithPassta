@@ -1,9 +1,11 @@
 .main_button_1 {
     width:100%;
+    text-align: center;
     font-size: 40px;
     padding: 5px 5px 5px 5px;
     border: 1px solid black;
 }
+
 .button-box {
     display: flex;
     width: 900px;
@@ -23,6 +25,6 @@
 
 .sumungs {
     border: 1px solid black;
-    width: 800px;
+    width: 900px;
     height: auto;
 }

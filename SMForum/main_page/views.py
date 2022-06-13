@@ -8,10 +8,10 @@ from forums.forms import UpdateUserForm
 
 def update_user(request):
     if request.method == 'POST':
-        form = UpdateUserForm(request.POST, instance=request.user)
+        form = UpdateUserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/about_me/')
+        return redirect('/about_me/')
     else:
         form = UpdateUserForm(instance=request.user)
     context = {
