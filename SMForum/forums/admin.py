@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
 from .models import Category, Tag, ForumPost, Comment, User, Status
 from markdownx.admin import MarkdownxModelAdmin
 
@@ -21,5 +23,5 @@ admin.site.register(Category,CategoryAdmin)
 admin.site.register(Tag,TagAdmin)
 admin.site.register(Status, StatusAdmin)
 admin.site.register(ForumPost, MarkdownxModelAdmin)
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Comment)
