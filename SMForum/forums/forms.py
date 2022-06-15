@@ -13,4 +13,4 @@ class CommentForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'nickname', 'phoneNumber', 'my_image', 'github']
+        fields = ['first_name', 'last_name', 'nickname','studentId' ,'phoneNumber', 'my_image', 'github']

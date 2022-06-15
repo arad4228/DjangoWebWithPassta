@@ -9,6 +9,7 @@ from markdown import markdown
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50,blank=True, null=True)
+    studentId = models.IntegerField(blank=True,null=True)
     phoneNumber = models.CharField(max_length=15,blank=True, null=True)
     my_image = models.ImageField(upload_to='users/images/%Y/%m/%d/', blank=True)
     github = models.URLField(blank=True, null=True)
