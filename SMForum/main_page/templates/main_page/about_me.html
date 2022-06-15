@@ -23,6 +23,13 @@
                 (입력 부탁드립니다.)
             {% endif %}
         </h3>
+        <h3>My DesiredField Id is
+            {% if User.desiredField %}
+                {{ User.desiredField }}
+            {% else %}
+                (입력 부탁드립니다.)
+            {% endif %}
+        </h3>
         <h3>My Name is
             {% if User.get_name %}
                 {{ User.get_name }}
@@ -32,7 +39,7 @@
         </h3>
         <h3>My Nickname is
             {% if User.get_nickname != None %}
-                {{ User.get_name }}
+                {{ User.get_nickname }}
             {% else %}
                 (입력 부탁드립니다.)
             {% endif %}
