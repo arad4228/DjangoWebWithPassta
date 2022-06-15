@@ -54,33 +54,33 @@
 
           <h3>작성자 정보</h3>
           <p>
-              이름: {% if user.get_name %}
-                {{ user.get_name }}
+              이름: {% if forumpost.author..get_name %}
+                {{ forumpost.author..get_name }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
-              닉네임: {% if user.get_nickname %}
-                {{ user.get_nickname }}
+              닉네임: {% if forumpost.author..get_nickname %}
+                {{ forumpost.author..get_nickname }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
-              학번: {% if user.studentId %}
-                {{ user.studentId }}
+              학번: {% if forumpost.author..studentId %}
+                {{ forumpost.author..studentId }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
-              원하는 분야: {% if user.desiredField %}
-                {{ user.desiredField }}
+              원하는 분야: {% if forumpost.author..desiredField %}
+                {{ forumpost.author..desiredField }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
-              전화번호: {% if user.get_phoneNumer %}
-                {{ user.get_phoneNumer }}
+              전화번호: {% if forumpost.author..get_phoneNumer %}
+                {{ forumpost.author..get_phoneNumer }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
-              이메일: {% if user.get_user_email %}
-                {{ user.get_user_email }}
+              이메일: {% if forumpost.author..get_user_email %}
+                {{ forumpost.author..get_user_email }}
                     {% else %}
                 (공란)
                 {% endif %}<br />
