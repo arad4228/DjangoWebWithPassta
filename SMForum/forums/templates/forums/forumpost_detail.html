@@ -9,7 +9,7 @@
       <div class="col-lg-8">
 
         <!-- Title -->
-        <h2 class="mt-4">[{{ forumpost.status }}]{{ forumpost.title }}</h2>
+        <h3 class="mt-4">[{{ forumpost.status }}]{{ forumpost.title }}</h3>
 
         <!-- Author -->
         <p class="lead">
@@ -29,7 +29,7 @@
       <!-- Preview Image -->
       <!-- 이미지가 있다면 이미지 출력 그렇지 않으면 이미지를 출력하지 않음-->
           {% if forumpost.content_image %}
-            <img class="img-fluid rounded" src="{{  forumpost.content_image.url }}"alt="" width="400">
+            <img class="img-fluid rounded" src="{{  forumpost.content_image.url }}"alt="" width="350">
           {% endif %}
         <hr>
 
@@ -85,8 +85,6 @@
                 (공란)
                 {% endif %}<br />
       </p>
-
-      </div>
 
         <!-- Comments Form -->
         <div class="card my-4">
